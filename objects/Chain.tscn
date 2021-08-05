@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://art/link.png" type="Texture" id=1]
+[ext_resource path="res://art/16259.png" type="Texture" id=2]
+[ext_resource path="res://scripts/Chain.gd" type="Script" id=3]
+
+[node name="Chain" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Links" type="Sprite" parent="."]
+position = Vector2( 0.594604, 159.354 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 16, 350 )
+
+[node name="Tip" type="KinematicBody2D" parent="."]
+
+[node name="Hook" type="Sprite" parent="Tip"]
+position = Vector2( -0.421635, -32.0922 )
+scale = Vector2( 0.113901, 0.133644 )
+texture = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Tip"]
+position = Vector2( 15.892, -60.3894 )
+polygon = PoolVector2Array( -15.9217, -6.06747, -42.938, 61.7382, -15.9217, 42.6678, 10.5649, 62.7976 )
