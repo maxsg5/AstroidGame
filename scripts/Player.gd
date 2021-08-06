@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Node2D
 
 export var speed = 400  # How fast the player will move (pixels/sec).
 var screen_size  # Size of the game window.
@@ -31,11 +31,22 @@ func _process(delta):
 	# magic key to the line
 	$MyLine.global_position=Vector2(0,0)
 func _input(event):
-   # Mouse in viewport coordinates.
+	
+	 # Mouse in viewport coordinates.
 	if event is InputEventMouseButton:
 		if event.pressed:
-			$MyLine.clear_points()
+			# We clicked the mouse -> shoot()
+			$Chain.shoot(event.position - get_viewport().size * 0.5)
 			createLine(global_position,get_global_mouse_position())
+		else:
+			# We released the mouse -> release()
+			$Chain.release()
+  
+	#press esc to clear line points DEBUGGING purposes.
+	if event is InputEventKey:
+		if event.pressed and event.scancode == KEY_ESCAPE:
+			$MyLine.clear_points()
+			
 	   #get position of player
 	   #get position of the mouse when clicked.
 	   #draw a line between the two points.
