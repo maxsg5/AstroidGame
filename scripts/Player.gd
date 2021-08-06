@@ -2,12 +2,14 @@ extends Node2D
 
 export var speed = 400  # How fast the player will move (pixels/sec).
 var screen_size  # Size of the game window.
-
+export var Bullet = preload("res://Bullet.tscn")
+var current_pos = position
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
+	print(self.get_path())
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -30,17 +32,20 @@ func _process(delta):
 	global_position.y = clamp(global_position.y, 34, screen_size.y-34)
 	# magic key to the line
 	$MyLine.global_position=Vector2(0,0)
+	
+	
+	
 func _input(event):
 	
 	 # Mouse in viewport coordinates.
 	if event is InputEventMouseButton:
 		if event.pressed:
 			# We clicked the mouse -> shoot()
-			$Chain.shoot(event.position - get_viewport().size * 0.5)
-			createLine(global_position,get_global_mouse_position())
-		else:
-			# We released the mouse -> release()
-			$Chain.release()
+		#	$Chain.shoot(event.position - get_viewport().size * 0.5)
+			#createLine(global_position,get_global_mouse_position())
+			#shoot tip
+			shoot();
+		
   
 	#press esc to clear line points DEBUGGING purposes.
 	if event is InputEventKey:
@@ -51,6 +56,12 @@ func _input(event):
 	   #get position of the mouse when clicked.
 	   #draw a line between the two points.
 			
+
+func shoot():
+	var b = Bullet.instance()
+	add_child(b)
+	b.transform = $Position2D.transform
+
 
 func createLine(from, to):
   print("From: "+ str(from))
