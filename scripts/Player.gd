@@ -28,7 +28,24 @@ func _process(delta):
 		global_position += velocity * delta
 	global_position.x = clamp(global_position.x, 50, screen_size.x-50)
 	global_position.y = clamp(global_position.y, 34, screen_size.y-34)
+	# magic key to the line
+	$MyLine.global_position=Vector2(0,0)
+func _input(event):
+   # Mouse in viewport coordinates.
+	if event is InputEventMouseButton:
+		if event.pressed:
+			$MyLine.clear_points()
+			createLine(global_position,get_global_mouse_position())
+	   #get position of player
+	   #get position of the mouse when clicked.
+	   #draw a line between the two points.
+			
 
+func createLine(from, to):
+  print("From: "+ str(from))
+  print("To: "+ str(to))
+  $MyLine.add_point(from,0)
+  $MyLine.add_point(to,1)
 
 func removeLine():
 	$MyLine.points = []
